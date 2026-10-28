@@ -1,0 +1,6 @@
+/* # index.css : トップページ用スタイル (nginxが直接配信) */
+body  { font-family: sans-serif; margin: 0; background: #f5f6f8; color: #222; }
+main  { max-width: 640px; margin: 3rem auto; padding: 0 1rem; }
+table { border-collapse: collapse; width: 100%; background: #fff; }
+th, td { border: 1px solid #ccc; padding: .5rem .75rem; text-align: left; }
+th    { background: #eef0f3; }

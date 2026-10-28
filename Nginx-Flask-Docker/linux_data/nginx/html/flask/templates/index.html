@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Nginx + Flask</title>
+        <!-- /static/ は nginx が直接配信する -->
+        <link rel="stylesheet" href="/static/css/index.css">
+    </head>
+    <body>
+        <main>
+            <h1>Nginx + Flask</h1>
+            <p>このページは Flask が生成しています。</p>
+
+            <table>
+                <tr><th>項目</th><th>値</th></tr>
+                <tr><td>アクセス先</td><td>{{ host }}</td></tr>
+                <tr><td>クライアントIP</td><td>{{ client_ip }}</td></tr>
+                <tr><td>/api/health</td><td><code id="health">取得中...</code></td></tr>
+            </table>
+        </main>
+        <script>
+            fetch("/api/health")
+                .then((r) => r.json())
+                .then((j) => { document.getElementById("health").textContent = JSON.stringify(j); })
+                .catch((e) => { document.getElementById("health").textContent = String(e); });
+        </script>
+    </body>
+</html>
