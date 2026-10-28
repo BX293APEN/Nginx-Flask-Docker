@@ -1,6 +1,10 @@
 /* # index.css : トップページ用スタイル (nginxが直接配信) */
-body  { font-family: sans-serif; margin: 0; background: #f5f6f8; color: #222; }
-main  { max-width: 640px; margin: 3rem auto; padding: 0 1rem; }
-table { border-collapse: collapse; width: 100%; background: #fff; }
-th, td { border: 1px solid #ccc; padding: .5rem .75rem; text-align: left; }
-th    { background: #eef0f3; }
+
+/* ## ゲージ
+   | クラス | 説明 |
+   | --- | --- |
+   | `.gauge` | ゲージ(SVG)。カードの幅いっぱいに広げる |
+   | `.metric-card` | ゲージ1つ分のカード。幅は 300px(ゲージ) + 32px(左右padding 1rem x 2) + 2px(枠線) = 334px。狭い画面では縮む |
+*/
+.gauge       { display: block; width: 100%; height: auto; }
+.metric-card { width: 334px; max-width: 100%; }

@@ -23,7 +23,7 @@ RUN apt update && \
     apt upgrade -y && \
     apt install -y \
     sudo nano iproute2 iputils-ping language-pack-ja \
-    nginx python3 python3-pip && \
+    nginx python3 python3-pip python3-psutil && \
     useradd -m -s /bin/bash -u ${USER_ID} ${USER_NAME} && \
     usermod -aG sudo ${USER_NAME} && \
     echo "root:${PASSWORD}" | chpasswd && \

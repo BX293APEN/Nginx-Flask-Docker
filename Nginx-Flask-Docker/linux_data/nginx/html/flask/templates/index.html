@@ -1,29 +1,45 @@
+{#
+    ### index.html
+
+    トップページ。ゲージ部分は `_gauges.html` を include し、以降は `static/js/index.js` が定期的に差し替える。
+
+    | 変数 | 型 | 説明 |
+    | --- | --- | --- |
+    | `refresh_sec` | `int` | ゲージの更新間隔(秒)。`#gauges` の `data-interval` に渡す |
+    | `memory` `memory_gauge` `cpu` `cpu_gauge` | - | `_gauges.html` を参照 |
+#}
 <!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Nginx + Flask</title>
+        <title>System Monitor</title>
         <!-- /static/ は nginx が直接配信する -->
+        <link rel="icon" href="/static/img/pen.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
         <link rel="stylesheet" href="/static/css/index.css">
+        <script src="/static/js/index.js" defer></script>
     </head>
     <body>
-        <main>
-            <h1>Nginx + Flask</h1>
-            <p>このページは Flask が生成しています。</p>
+        <header data-bs-theme="dark">
+            <nav class="navbar navbar-dark sticky-top bg-dark">
+                <div class="container-fluid">
+                    <span class="navbar-brand d-flex align-items-center gap-2">
+                        <img src="/static/img/pen.svg" height="40" width="40" alt="">
+                        System Monitor
+                    </span>
+                    <!-- 最終更新時刻(ブラウザ側で index.js が書き込む) -->
+                    <span class="navbar-text small" id="updated"></span>
+                </div>
+            </nav>
+        </header>
 
-            <table>
-                <tr><th>項目</th><th>値</th></tr>
-                <tr><td>アクセス先</td><td>{{ host }}</td></tr>
-                <tr><td>クライアントIP</td><td>{{ client_ip }}</td></tr>
-                <tr><td>/api/health</td><td><code id="health">取得中...</code></td></tr>
-            </table>
-        </main>
-        <script>
-            fetch("/api/health")
-                .then((r) => r.json())
-                .then((j) => { document.getElementById("health").textContent = JSON.stringify(j); })
-                .catch((e) => { document.getElementById("health").textContent = String(e); });
-        </script>
+        <div class="container pt-3">
+            <main>
+                <div id="gauges" data-interval="{{ refresh_sec }}">
+                    {% include "_gauges.html" %}
+                </div>
+            </main>
+        </div>
     </body>
 </html>
